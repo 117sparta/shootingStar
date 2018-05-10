@@ -3,7 +3,7 @@ drawing.width = window.innerWidth;
 drawing.height = window.innerHeight;
 console.log(window.innerWidth);
 console.log(window.innerHeight);
-let starGroup = new Array(5);
+let starGroup = new Array(9);
 for (let i = 0; i < starGroup.length; i++) {
     starGroup[i] = new ShootingStar();
 }
@@ -13,7 +13,7 @@ function ShootingStar() {
     this.initY = Math.random() * (window.innerHeight / 8);
     this.x = this.initX;
     this.y = this.initY;
-    this.length = 30;
+    this.length = Math.random() * 30 + 14;
     this.speed = 8;
     this.dura = Math.random() * 50 + 20;
     this.reset = function () {
@@ -39,10 +39,13 @@ function drawShootingStar() {
                 continue;
             }
             let step = starGroup[i].length / 5;
-            context.strokeStyle = "rgba(255,255,255,0.2)";
+            context.strokeStyle = "rgba(255,255,255,1)";
             let endX = starGroup[i].x;
             let endY = starGroup[i].y;
-            let opa = 0.3;
+            context.beginPath();
+            context.moveTo(starGroup[i].x, starGroup[i].y);
+            context.lineTo(starGroup[i].x + starGroup[i].length, starGroup[i].y + starGroup[i].length);
+            /*let opa = 0.3;
             for (let j = 0; j < 5; j++) {
                 context.beginPath();
                 endX += step;
@@ -54,7 +57,9 @@ function drawShootingStar() {
                 context.strokeStyle = "rgba(255,255,255," + opa + ")";
                 opa += 0.2;
             }
-
+            */
+            context.stroke();
+            context.closePath();
             starGroup[i].x += starGroup[i].speed;
             starGroup[i].y += starGroup[i].speed;
             //context.clearRect(starGroup[i].x - starGroup[i].speed-2, starGroup[i].y - starGroup[i].speed-2, starGroup[i].speed + 4, starGroup[i].speed + 4);
